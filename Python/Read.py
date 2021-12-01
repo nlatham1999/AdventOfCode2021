@@ -16,5 +16,8 @@ for line in lines:
 o = open("DayOneOutput.txt", "w")
 o.write(str(output))
 
+print(len(output))
+
+
 i.close()
 o.close()
