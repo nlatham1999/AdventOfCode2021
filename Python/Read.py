@@ -1,19 +1,15 @@
 
-i = open("DayOneInput.txt", "r")
+i = open("DayTwoInput.txt", "r")
 
 lines = i.readlines()
 
-output = []
+output = ""
 
 for line in lines:
     arr = line.split()
-    for x in arr:
-        try:
-            output.append(int(x))
-        except:
-            pass
+    output+= ("new Pair<String,Integer>(\"" + arr[0] + "\"," + arr[1] + "),") 
 
-o = open("DayOneOutput.txt", "w")
+o = open("DayTwoOutput.txt", "w")
 o.write(str(output))
 
 print(len(output))
