@@ -9,13 +9,11 @@ public class Day3 {
 
     static ArrayList<String> arr0 = new ArrayList<>();
     static ArrayList<Integer> arr1 = new ArrayList<>();
-    static ArrayList<String> arrGamma = new ArrayList<>();
-    static ArrayList<String> arrEpsilon = new ArrayList<>();
 
     public static void Day3(){
-        fileIO2();
-        arrGamma = arr0;
-        arrEpsilon = arr0;
+        fileIO();
+        ArrayList<String> arrGamma = arr0;
+        ArrayList<String> arrEpsilon = arr0;
 
         arrGamma = filterDown(arrGamma, 1, 0);
         arrEpsilon = filterDown(arrEpsilon, 0, 1);
@@ -65,7 +63,7 @@ public class Day3 {
         return arr;
     }
 
-    private static void fileIO2(){
+    private static void fileIO(){
         File inputFile = new File("src/com/company/Day3Input");
         try {
             Scanner reader = new Scanner(inputFile);
