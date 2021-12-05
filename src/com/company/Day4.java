@@ -12,7 +12,7 @@ public class Day4 {
 
     private static ArrayList<Integer> drawings = new ArrayList<>();
     private static ArrayList<Pair<Integer, ArrayList<Integer>>> rowsAndColumns = new ArrayList<>();
-    private static ArrayList<HashMap<Integer, Triplet>> elementsMap = new ArrayList<>(); //map of bingo cell -> row, column, is taken
+    private static ArrayList<HashMap<Integer, Triplet>> elementsMap = new ArrayList<>(); //map of bingo cell -> row, column, istaken
     private static ArrayList<Integer> boardsInPlay = new ArrayList<>();
 
     public static void Day4(){
@@ -35,14 +35,12 @@ public class Day4 {
                 if(bingoCard.containsKey(drawing)){
                     var pos = bingoCard.get(drawing);
 
-
                     var colRow = rowsAndColumns.get(i*10+5+pos.second);
                     var rowRow = rowsAndColumns.get(i*10+pos.first);
                     var colList = colRow.getValue();
                     var rowList = rowRow.getValue();
                     colList.remove(colList.indexOf(drawing));
                     rowList.remove(rowList.indexOf(drawing));
-
 
                     //set all updated values
                     pos.third = 1;
@@ -89,14 +87,8 @@ public class Day4 {
                     var rowRow = rowsAndColumns.get(i*10+pos.first);
                     var colList = colRow.getValue();
                     var rowList = rowRow.getValue();
-                    System.out.println(i);
-                    System.out.println(drawing);
-                    System.out.println(i*10+pos.first);
-                    System.out.println(colRow);
-                    System.out.println(rowRow);
                     colList.remove(colList.indexOf(drawing));
                     rowList.remove(rowList.indexOf(drawing));
-
 
                     //set all updated values
                     pos.third = 1;
@@ -116,10 +108,8 @@ public class Day4 {
                         return;
                     }
 
-
                     rowsAndColumns.set(i*10+5+pos.second, new Pair(colRow.getKey(), colList));
                     rowsAndColumns.set(i*10+pos.first, new Pair(rowRow.getKey(), rowList));
-
 
                 }
             }
