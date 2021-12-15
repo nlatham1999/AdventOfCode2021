@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Day15 {
 
-    private static int size = 10;
+    private static int size = 100;
     private static int[][] ceiling = new int[size][size];
 
     private static int smallest = Integer.MAX_VALUE;
@@ -32,6 +32,7 @@ public class Day15 {
     }
 
     private static void partTwo(){
+
         int[][] ceiling2 = new int[size*5][size*5];
         for(int x = 0; x < 5; x++){
             for(int y = 0; y < 5; y++){
@@ -40,17 +41,28 @@ public class Day15 {
 
                         int val = ceiling[i][j] + x + y;
                         if(val > 9){
-                            val = 1;
+                            val -= 9;
                         }
+                        ceiling2[(x*size)+i][(y*size)+j] = val;
 
-                        ceiling2[(x+1)*i][(y+1)*j] = val;
+//                        System.out.println(x+ "," +y+","+i+","+j+" "+ ((x+1)*i) + " " + ((y+1)*j) + " " + val);
                     }
                 }
             }
         }
-        ceiling = ceiling2;
+
         size = size*5;
+
+        ceiling = ceiling2;
         distances = new int[size][size];
+
+//        for(int i = 0; i < size; i++){
+//            for(int j = 0; j < size; j++){
+//                System.out.print(ceiling[i][j]);
+//            }
+//            System.out.println();
+//        }
+
 
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
@@ -63,6 +75,10 @@ public class Day15 {
             }
         }
 
+
+//        traverse(0,0);
+//
+//        System.out.println(distances[size-1][size-1]);
 
 
         ArrayList<Pair<Integer, Integer>> q = new ArrayList<>();
