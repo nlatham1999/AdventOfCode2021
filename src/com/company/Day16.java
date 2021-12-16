@@ -30,7 +30,72 @@ public class Day16 {
 
         partOne();
 
+        partTwo();
+    }
 
+    private static void partTwo(){
+        System.out.println(travelThroughPackets(sections.get(0)));
+    }
+
+    private static long travelThroughPackets(Section section){
+        int type = section.type;
+        if(type == 0){
+            long sum = 0;
+            for(var s : section.subPackets){
+                sum += travelThroughPackets(s);
+            }
+            return sum;
+        }else if(type == 1){
+            long prod = 1;
+            for(var s : section.subPackets){
+                prod *= travelThroughPackets(s);
+            }
+            return prod;
+        }else if(type == 2){
+            long min = travelThroughPackets(section.subPackets.get(0));
+            for(var s : section.subPackets){
+                long x = travelThroughPackets(s);
+                if(x < min){
+                    min = x;
+                }
+            }
+            return min;
+        }else if(type == 3){
+            long max = travelThroughPackets(section.subPackets.get(0));
+            for(var s : section.subPackets){
+                long x = travelThroughPackets(s);
+                if(x > max){
+                    max = x;
+                }
+            }
+            return max;
+        }else if(type == 4){
+            return section.value;
+        }else if(type == 5){
+            long first = travelThroughPackets(section.subPackets.get(0));
+            long second = travelThroughPackets(section.subPackets.get(1));
+            if( first > second){
+                return 1;
+            }else{
+                return 0;
+            }
+
+        }else if(type == 6){
+            long first = travelThroughPackets(section.subPackets.get(0));
+            long second = travelThroughPackets(section.subPackets.get(1));
+            if( first < second){
+                return 1;
+            }else{
+                return 0;
+            }
+
+        }else{
+            if(travelThroughPackets(section.subPackets.get(0)) == travelThroughPackets(section.subPackets.get(1))){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
     }
 
     private static void partOne(){
@@ -71,7 +136,6 @@ public class Day16 {
         int version = Integer.parseInt(binary.substring(count, count+3), 2);
         count += 3;
         int type = Integer.parseInt(binary.substring(count,count+3),2);
-        System.out.println("type: " + type);
         count += 3;
         Section section = new Section(version, type);
         if(type == 4){
@@ -90,14 +154,12 @@ public class Day16 {
 //            count+=roundToMultipleOfFour(c);
             long value = Long.parseLong(val, 2);
             section.value = value;
-            System.out.println("value: " + value);
             return section;
         }else{
             char I = binary.charAt(count);
             count++;
             if(I == '0'){
                 int length = Integer.parseInt(binary.substring(count, count+15),2);
-                System.out.println("lengthOne: " + length);
                 count += 15;
                 int goal = count + length;
                 ArrayList<Section> sections = new ArrayList<>();
@@ -108,7 +170,6 @@ public class Day16 {
 
             }else{
                 int length = Integer.parseInt(binary.substring(count, count+11),2);
-                System.out.println("lengthTwo: " + length);
                 count += 11;
                 ArrayList<Section> sections = new ArrayList<>();
                 for(int i = 0; i < length; i++){
