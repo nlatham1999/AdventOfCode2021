@@ -22,7 +22,8 @@ public class Main {
 //        Day17.Day17();
 //        Day18.Day18();
 //        Day19.Day19();
-        Day20.Day20();
+//        Day20.Day20();
+        Day21.Day21();
     }
 
 }
