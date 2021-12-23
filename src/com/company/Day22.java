@@ -44,15 +44,17 @@ public class Day22 {
         fileIO();
 
 
-        setAllTo50();
-//        printInstructions();
+//        setAllTo50();
+//        check();
         partTwo();
-        partOne();
+//        partOne();
+
+
     }
 
     private static void setAllTo50(){
-        int min = -4;
-        int max = 30;
+        int min = -50;
+        int max = 50;
         ArrayList<Instruction> iCopy = new ArrayList<>();
         for(int i = 0; i < instructions.size(); i++){
             var cube = instructions.get(i);
@@ -65,12 +67,18 @@ public class Day22 {
 
             if(cube.maxX >= min && cube.minX <= max && cube.maxY >= min && cube.minY <= max && cube.maxZ >= min && cube.minZ <= max)
             {
-                System.out.println(i);
-                printCube(cube);
+//                printCube(cube);
                 iCopy.add(cube);
             }
         }
         instructions = iCopy;
+    }
+
+    private static void check(){
+        for(var cube : instructions){
+            if(cube.maxZ < cube.minZ || cube.maxX < cube.minX || cube.maxY < cube.minY)
+                System.out.println("test");
+        }
     }
 
     private static void partTwo(){
@@ -84,15 +92,16 @@ public class Day22 {
             if(instruction.command.equals("on")){
                 newCubes.add(instruction);
             }
+            System.out.println(count);
             cubes = newCubes;
             count++;
         }
 //        System.out.println(cubes.size());
         long area = 0;
         for(var cube : cubes){
-            long a = (Math.abs(cube.maxX-cube.minX)+1)*(Math.abs(cube.maxY-cube.minY)+1)*(Math.abs(cube.maxZ-cube.minZ)+1);
-//            printCube(cube);
-//            System.out.println(a);
+            long a = ((long)(cube.maxX-cube.minX+1))*((long)(cube.maxY-cube.minY+1))*((long)(cube.maxZ-cube.minZ+1));
+            printCube(cube);
+            System.out.println(a + " " + (cube.maxX-cube.minX+1) + " " + (cube.maxY-cube.minY+1) + " " + (cube.maxZ-cube.minZ+1));
             area += a;
 //          System.out.println((Math.abs(cube.maxX-cube.minX)+1)*(Math.abs(cube.maxY-cube.minY)+1)*(Math.abs(cube.maxZ-cube.minZ)+1) + " " + a);
         }
@@ -101,7 +110,7 @@ public class Day22 {
 
     private static void printCube(Instruction instruction){
 
-                System.out.println("(" + instruction.minX + "," + instruction.maxX +"),("+instruction.minY + "," + instruction.maxY + "),(" +instruction.minZ + "," + instruction.maxZ + ")");
+        System.out.println("(" + instruction.minX + "," + instruction.maxX +"),("+instruction.minY + "," + instruction.maxY + "),(" +instruction.minZ + "," + instruction.maxZ + ")");
     }
 
     //subtract cubeA from cubeB and add the resulting cubes in newCubes
@@ -124,9 +133,12 @@ public class Day22 {
 
         Instruction smallCube = new Instruction("on", Math.max(cubeA.minX, cubeB.minX), Math.min(cubeA.maxX, cubeB.maxX), Math.max(cubeA.minY, cubeB.minY), Math.min(cubeA.maxY, cubeB.maxY), Math.max(cubeA.minZ, cubeB.minZ), Math.min(cubeA.maxZ, cubeB.maxZ));
 
-//        System.out.println("[(" + smallCube.minX + "," + smallCube.maxX + "),(" + cubeA.minX + "," + cubeA.maxX +")]" +
-//                "[(" + smallCube.minY + "," + smallCube.maxY + "),(" + cubeA.minY + "," + cubeA.maxY +")]" +
-//                "[(" + smallCube.minZ + "," + smallCube.maxZ + "),(" + cubeA.minZ + "," + cubeA.maxZ +")]");
+//        System.out.print("cubeB ");
+//        printCube(cubeB);
+//        System.out.print("cubeA ");
+//        printCube(cubeA);
+//        System.out.print("smallCube ");
+//        printCube(smallCube);
 
         if(smallCube.minZ != cubeA.minZ){
             Instruction frontCube = new Instruction("on", cubeA.minX, cubeA.maxX, cubeA.minY, cubeA.maxY, cubeA.minZ, smallCube.minZ-1);
@@ -141,7 +153,7 @@ public class Day22 {
         }
 
         if(smallCube.minX != cubeA.minX){
-            Instruction sideLeftCube = new Instruction("on", cubeB.minX, smallCube.minX-1, cubeA.minY, cubeA.maxY, smallCube.minZ, smallCube.maxZ);
+            Instruction sideLeftCube = new Instruction("on", cubeA.minX, smallCube.minX-1, cubeA.minY, cubeA.maxY, smallCube.minZ, smallCube.maxZ);
             newCubes.add(sideLeftCube);
 //            System.out.println("adding side left (" + sideLeftCube.minX + "," + sideLeftCube.maxX +"),("+sideLeftCube.minY + "," + sideLeftCube.maxY + "),(" +sideLeftCube.minZ + "," + sideLeftCube.maxZ + ")");
         }
