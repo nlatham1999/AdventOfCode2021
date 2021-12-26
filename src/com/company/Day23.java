@@ -45,8 +45,8 @@ public class Day23 {
             return;
         }
 
-        if(level < 4)
-            System.out.println(level);
+//        if(level < 4)
+//            System.out.println(level);
 
         for(int j = 0; j < amp.size(); j++){
             var amphipod = amp.get(j);
@@ -54,8 +54,8 @@ public class Day23 {
             ArrayList<Integer> arr = new ArrayList<>();
             validLocations(amphipod.getKey(), inRoom, arr, amphipod.getValue(), location);
 
-            if(level < 3)
-                System.out.println(level + " " + amphipod.getKey() + " " + amphipod.getValue() + " " + arr);
+//            if(level < 3)
+//                System.out.println(level + " " + amphipod.getKey() + " " + amphipod.getValue() + " " + arr);
 
             for(int i : arr){
                 Pair<Character, Integer> a = new Pair<>(amphipod.getKey(), i);
